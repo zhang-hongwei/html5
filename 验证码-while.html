@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>验证码</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            color: #555;
+            -webkit-user-select:none ;
+        }
+        div{
+            margin: 30px auto;
+            width: 100px;
+            line-height: 35px;
+            text-align: center;
+            /*字体之间间距*/
+            letter-spacing: 3px;
+            border: 1px dashed goldenrod;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="code" id="code">ABCD</div>
+<script>
+    //    验证码：在26个小写及大写字母以及10个数字中，随机获取四个，组成一个验证码即可
+    var codeBox=document.getElementById("code");
+    //    1.先准备62个字符（索引0~61）
+    var codeArea="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    //    2.在范围字符串中随便获取四个字符就可以组成验证码了
+    function createRandom() {
+        var result="";
+       while (result.length<4){//只要最后结果不足四位，则必须继续获取
+           var ran=Math.round(Math.random()*61);//随机获取任意整数
+           var cur=codeArea.charAt(ran);//每一个循环获取的字符
+           //为了保证不重复，我们需要验证，现有获取的字符是否已经包含了我们的cur，如果没有包含我们再拼接，已经包含则不管，继续下一轮循序即可
+           if (result.indexOf(cur)===-1){
+               result +=cur;
+           }
+       }
+        codeBox.innerHTML=result;
+    }
+    createRandom();
+    codeBox.onclick=function () {
+        createRandom();
+    }
+
+
+
+
+
+</script>
+</body>
+</html>
